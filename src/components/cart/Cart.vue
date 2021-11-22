@@ -17,8 +17,8 @@
 					@upQty='upQty(index)'
 				/>
 			</div>
-			<div class="cart__total">Total: {{totalCost}}</div>
 		</div>
+		<div class="cart__total">Total: {{totalCost}}</div>
 	</div>
 </template>
 
@@ -62,6 +62,9 @@ export default {
 .cart {
 	position: relative;
 }
+.cart__container {
+	margin-bottom: 30px;
+}
 .cart__back-to-catalog {
 	position: absolute;
 	top: 0;
@@ -92,16 +95,11 @@ export default {
 	text-align: center;
 	color: #d3d3d3;
 }
-.cart__list {
-}
 .cart__item:not(:last-child) {
 	margin: 0 0 30px 0;
 }
 .cart__total {
-	position: fixed;
 	padding: 30px;
-	bottom: 0;
-	left: 0;
 	width: 100%;
 	display: flex;
 	justify-content: center;
@@ -117,7 +115,10 @@ export default {
 		justify-content: start;
 	}
 	.cart-back__arrow {
-	margin: 0 20px 0 0;
-}
+		margin: 0 20px 0 0;
+	}
+	.cart__total {
+		font-size: 40px;
+	}
 }
 </style>
