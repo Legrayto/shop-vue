@@ -55,7 +55,7 @@
 
 import Select from '../Select'
 import catalogItem from '../catalog/Catalog-item'
-import {mapState} from 'vuex'
+import {mapState, mapGetters} from 'vuex'
 
 
 export default {
@@ -75,6 +75,7 @@ export default {
 			selected: 'All',
 
 			sortedProducts: [],
+			sortedSearch: [],
 			sortedCategory: [],
 			sortedPrice: [],
 
@@ -82,44 +83,47 @@ export default {
 			maxPrice: 10000,
 		}
 	},
-
 	methods: {
 		sortBySearch(value) {
-			this.sortedProducts = [...this.products]
 			if (value) {
-				this.sortedProducts = this.sortedProducts.filter(item => {
-				return item.name.toLowerCase().includes(value.toLowerCase())})
+				this.sortedSearch = [...this.products].filter(item => item.name.toLowerCase().includes(value.toLowerCase()))
 			}
 		},
 
 		setRange() {
+			this.sortedSearch = []
 			if (this.maxPrice < this.minPrice) {
 				let tmp = this.maxPrice
 				this.maxPrice = this.minPrice
 				this.minPrice = tmp
 			}
-
 			let vm = this
 			this.sortedPrice = [...this.products].filter(item => {return item.price > vm.minPrice && item.price < vm.maxPrice})
 		},
 
 		sortByCategory(category) {
-			this.sortedCategory = [...this.products].filter(item => item.category === category.name)
+			this.sortedSearch = []
+			category.name != 'All' ? this.sortedCategory = [...this.products].filter(item => item.category === category.name) : this.sortedCategory = this.products
 			this.selected = category.name
 		},
 	},
 	watch: {
 		searchValue() {
-			this.searchValue.length ? this.sortBySearch(this.searchValue) : null;
+			this.sortBySearch(this.searchValue)
 		}
 	},
 	computed: {
 		...mapState([
 			'products',
 			'cart',
+		]),
+		...mapGetters([
 			'searchValue'
 		]),
 		filter() {
+			if (this.sortedSearch.length) {
+				return this.sortedSearch
+			}
 			return this.sortedCategory.filter(item => this.sortedPrice.indexOf(item) > -1);
 		}
 	},

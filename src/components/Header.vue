@@ -36,7 +36,7 @@ export default {
 				this.$router.push('/Catalog')
 			}
 			this.$store.commit('search', value);
-			this.searchValue = '';
+			this.clearSearch()
     },
 		clearSearch() {
 			this.searchValue = ''

@@ -94,6 +94,9 @@ export default createStore({
 			state.cart[index].qty++
 		}
   },
-  modules: {
-  }
+  getters: {
+		searchValue(state) {
+			return state.searchValue
+		}
+	}
 })

@@ -50,7 +50,6 @@ export default {
 		},
 		active() {
 			this.areOptionsVisible = !this.areOptionsVisible;
-			console.log(this.areOptionsVisible)
 		}
 	},
 
